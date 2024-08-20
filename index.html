@@ -96,5 +96,43 @@
     </div>
   </div>
 </div>
+<script>
+  // Écouter submit
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Empêche la recharge de la page
+
+    // Récupération des champs du formulaire
+    let firstNameField = document.getElementById('first-name');
+    let lastNameField = document.getElementById('last-name');
+    let messageField = document.getElementById('message');
+    const errorMessage = document.getElementById('error-message');
+ 
+    // Vérifier que les champs ne sont pas vides
+    if (firstNameField.value === '' || lastNameField.value === '' || messageField.value === '') {
+        errorMessage.style.display = 'block'; // Affiche le message d'erreur
+    } else {
+        errorMessage.style.display = 'none'; // Cache le message d'erreur
+
+        // Création d'un nouveau commentaire
+        let newComment = document.createElement('div');
+        newComment.classList.add('flex', 'space-x-4', 'text-sm', 'text-gray-500', 'border-t', 'border-gray-200');
+
+        let commentContent = `
+            <div class="flex-1 py-10">
+                <h3 class="font-medium text-gray-900">${firstNameField.value} ${lastNameField.value}</h3>
+                <div class="prose prose-sm mt-4 max-w-none text-gray-500">
+                    <p>${messageField.value}</p>
+                </div>
+            </div>
+        `;
+
+        newComment.innerHTML = commentContent;
+
+        // Ajout du nouveau commentaire à la fin de la liste des commentaires puis réinitialisation
+        document.getElementById('comment-list').appendChild(newComment);
+        document.querySelector('form').reset();
+    }
+});
+</script>
 </body>
 </html>
